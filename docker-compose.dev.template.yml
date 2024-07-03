@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  db:
+    image: docker.arvancloud.ir/postgres:16.0
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_DB: <DB_NAME>
+      POSTGRES_USER: <DB_USER>
+      POSTGRES_PASSWORD: <DB_PASSWORD>
+    volumes:
+      - ./postgres-data/:/var/lib/postgresql/data/
+
+  app:
+    build:
+      context: .
+    command: ["/bin/bash", "/app/wait-for-it.sh" , "db:5432", "--", "/app/run.sh"]
+    container_name: app
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DJANGO_SECRET_KEY: <RANDOM_SECRET>
+      APP_HOST: <YOUR_NGROK_STATIC_DOMAIN>
+      DIVAR_IDENTIFICATION_KEY: <YOUR_APP_IDENTIFICATION_KEY_IN_KENAR>
+      KENAR_APP_SLUG: <YOUR_APP_SLUG>
+      KENAR_API_KEY: <YOUR_APP_GENERATED_API_KEY_IN_KENAR>
+      KENAR_OAUTH_SECRET: <YOUR_APP_OAUTH_SECRET_IN_KENAR>
+      DATABASE_NAME: <DB_NAME>
+      DATABASE_USER: <DB_USER>
+      DATABASE_PASSWORD: <DB_PASSWORD>
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.:/app/
+
+  ngrok:
+    image: docker.arvancloud.ir/ngrok/ngrok
+    container_name: ngrok
+    command: ["http", "--domain=<YOUR_NGROK_STATIC_DOMAIN>", "8000"]
+    network_mode: "host"
+    environment:
+       NGROK_AUTHTOKEN: <YOUR_NGROK_AUTH_TOKEN>
