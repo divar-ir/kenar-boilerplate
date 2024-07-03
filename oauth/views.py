@@ -70,6 +70,13 @@ def oauth_callback(request):
             oauth.chat = chat
             oauth.save()
 
+            logger.error(access_token_response.access_token)
+            logger.error(SetNotifyChatPostConversationsRequest(
+                    post_token=chat.post.token,
+                    endpoint=settings.APP_BASE_URL + reverse("receive_notify"),
+                    identification_key=signer.sign(str(chat.id)),
+                ),)
+
             kenar_client.chat.set_notify_chat_post_conversations(
                 access_token=access_token_response.access_token,
                 data=SetNotifyChatPostConversationsRequest(
@@ -84,7 +91,7 @@ def oauth_callback(request):
             return redirect(url)
 
     except httpx.HTTPStatusError as http_err:
-        logger.error(f"HTTP error occurred: {http_err}")
+        logger.error(f"HTTP error occurred: {http_err}: {http_err.response.text}")
         return HttpResponseServerError("Internal server error")
     except Exception as err:
         logger.error(f"An error occurred: {err}")

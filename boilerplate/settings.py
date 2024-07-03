@@ -35,7 +35,7 @@ CSRF_TRUSTED_ORIGINS = [APP_BASE_URL, "http://localhost:8000", "http://127.0.0.1
 
 DATABASE_HOST = os.getenv("DATABASE_HOST", "localhost")
 DATABASE_PORT = os.getenv("DATABASE_PORT", "5432")
-DATABASE_NAME = os.getenv("DATABASE_NAME", "kenar_new")
+DATABASE_NAME = os.getenv("DATABASE_NAME", "kenar")
 DATABASE_USER = os.getenv("DATABASE_USER", "postgres")
 DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD", "postgres")
 
