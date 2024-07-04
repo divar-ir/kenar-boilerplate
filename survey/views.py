@@ -7,18 +7,21 @@ from matching.models import Transaction
 from .models import Survey
 from accounts.models import Verifier
 from django.db.models import Avg
+import decimal
 
 class RateView(APIView):
-    def post(request, survey_id):
+    def post(self, request, survey_id):
         survey = get_object_or_404(Survey, uuid=survey_id)
-        
+        if survey.completed:
+            return Response(data={"error": "Not Valid Survey"}, status=status.HTTP_400_BAD_REQUEST)
         rate = request.data.get('rate')
-        survey.rate = rate
+        survey.rate = decimal.Decimal(rate)
         survey.completed = True
         survey.save()
 
-        survey.target_verifier.rate = Survey.objects.filter(target_verifier=survey.target_verifier).aggregate(Avg('rate'))
+        avg_rate = Survey.objects.filter(target_verifier=survey.target_verifier).aggregate(Avg('rate'))['rate__avg']
+        survey.target_verifier.rate = avg_rate
         survey.target_verifier.save()
 
-        return Response(status=status.HTTP_201_CREATED)
+        return Response(data={"message": "OK", "avg_rate": avg_rate}, status=status.HTTP_201_CREATED)
     
