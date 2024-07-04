@@ -104,6 +104,5 @@ def oauth_callback(request):
 
 class FakeView(APIView):
     def get(self, request):
-        oauth_session = OAuthSession(**request.session.get(settings.OAUTH_SESSION_KEY))
-        return Response({"message": oauth_session}, status=status.HTTP_200_OK)
+        return Response({"message": request.GET}, status=status.HTTP_200_OK)
         pass
