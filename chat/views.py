@@ -8,7 +8,7 @@ from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
 from kenar.app import Scope, SendChatMessageResourceIdParams
-from kenar.models.oauth import OauthResourceType
+from kenar.oauth import OauthResourceType
 from rest_framework.decorators import api_view
 
 from addon.models import Post
