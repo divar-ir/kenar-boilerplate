@@ -5,3 +5,4 @@ docker-compose.yml
 postgres-data/
 venv/
 boilerplate/local_settings.py
+db.sqlite3

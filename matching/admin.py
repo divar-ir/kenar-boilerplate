@@ -1,3 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
+from .models import VerificationRequest, Transaction
+admin.site.register(VerificationRequest)
+admin.site.register(Transaction)
