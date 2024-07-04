@@ -46,4 +46,3 @@ class Post(TimestampModel):
     def __str__(self):
         return f'Post: {self.divar_post_id} by {self.seller.user.username}'
 
-# Create your models here.
