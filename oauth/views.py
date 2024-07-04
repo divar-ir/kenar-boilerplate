@@ -247,8 +247,8 @@ class FakeView(APIView):
                 title="به سمت سایت شما", link="https://www.test.com"
             ),
         )
-
-        resp = app.addon.create_post_addon(
+        kenar_client = get_divar_kenar_client()
+        resp = kenar_client.addon.create_post_addon(
             access_token=request.GET["access_token"],
             data=CreatePostAddonRequest(
                 token=request.GET["post_token"],
