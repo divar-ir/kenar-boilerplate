@@ -21,4 +21,8 @@ urlpatterns = [
     path("addon/", include("addon.urls")),
     path("chat/", include("chat.urls")),
     path("oauth/", include("oauth.urls")),
+    path("admin/", admin.site.urls),
+    path("matching/", include("matching.urls")),
+    path("accounts/", include("accounts.urls")),
+    path("survey/", include("survey.urls")),
 ]

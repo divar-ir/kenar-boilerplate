@@ -31,7 +31,8 @@ class Verifier(TimestampModel):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20, unique=True, null=True, blank=True)
-    rate = models.IntegerField()
+    rate = models.DecimalField(default=5.0, max_digits=12)
+    transactions_participated_count = models.IntegerField(default=0)
 
     def __str__(self):
         return f'Verifier: {self.firstname} {self.lastname}'
