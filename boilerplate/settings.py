@@ -30,6 +30,7 @@ APP_BASE_URL = "https://" + APP_HOST
 
 ALLOWED_HOSTS = [APP_HOST, "localhost", "127.0.0.1", "*"]
 
+CORS_ALLOWED_ORIGINS = ["*"]
 # CSRF_TRUSTED_ORIGINS = ["http://"]
 
 DATABASE_HOST = os.getenv("DATABASE_HOST", "localhost")
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "corsheaders",
+
     "addon",
     "chat",
     "oauth",
@@ -59,6 +62,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     #"django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",

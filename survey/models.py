@@ -12,7 +12,7 @@ def generate_short_uuid():
     return base64.urlsafe_b64encode(uuid.uuid4().bytes).rstrip(b'=').decode('ascii')[:12]
 
 class Survey(models.Model):
-    uuid = models.CharField(default=uuid.uuid4, editable=False, unique=True, max_length=12)
+    uuid = models.CharField(default=generate_short_uuid, editable=False, unique=True, max_length=12)
     side = models.SmallIntegerField(choices=Side.choices)
 
     rating_user = models.ForeignKey(accounts_models.User, on_delete=models.CASCADE)
