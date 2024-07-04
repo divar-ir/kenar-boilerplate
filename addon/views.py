@@ -21,6 +21,8 @@ def addon_oauth(request):
     post_token = request.query_params.get("post_token")
     callback_url = request.query_params.get("return_url")
 
+    logger.error(request)
+
     post, _ = Post.objects.get_or_create(token=post_token)
 
     oauth_session = OAuthSession(
@@ -62,10 +64,12 @@ def addon_app(request):
         post = oauth.post
     except OAuth.DoesNotExist:
         return HttpResponseForbidden("permission denied")
-
+    
+    
     # TODO: Implement logic for after opening your application in post
     # Example: create post addon
 
     # After processing the post logic, redirect to the callback URL
     callback_url = oauth_session.get_callback_url()
+
     return redirect(callback_url)

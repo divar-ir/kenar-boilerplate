@@ -88,7 +88,7 @@ def oauth_callback(request):
                     identification_key=signer.sign(str(chat.id)),
                 ),
             )
-            base_url = reverse("chat_app")
+            base_url = reverse("fake-view")
             query_string = urlencode({"state": oauth_session.state})
             url = f"{base_url}?{query_string}"
             return redirect(url)
@@ -103,5 +103,5 @@ def oauth_callback(request):
 
 class FakeView(APIView):
     def get(self, request):
-        return Response({"message": "YO"}, status=status.HTTP_200_OK)
+        return Response({"message": request.GET}, status=status.HTTP_200_OK)
         pass
