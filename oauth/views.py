@@ -63,7 +63,7 @@ def oauth_callback(request):
 
         if oauth_session.type == OAuthSessionType.POST.value:
             oauth.save()
-            base_url = reverse("addon_app")
+            base_url = reverse("fake-view")
             query_string = urlencode({"state": oauth_session.state})
             url = f"{base_url}?{query_string}"
             return redirect(url)
@@ -91,6 +91,7 @@ def oauth_callback(request):
             base_url = reverse("fake-view")
             query_string = urlencode({"state": oauth_session.state})
             url = f"{base_url}?{query_string}"
+            logger.info("sep01 else callback")
             return redirect(url)
 
     except httpx.HTTPStatusError as http_err:
