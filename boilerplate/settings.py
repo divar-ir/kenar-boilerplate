@@ -149,3 +149,9 @@ divar_kenar_client_conf = AppConfig(
     oauth_secret=os.environ.get("KENAR_OAUTH_SECRET"),
     oauth_redirect_url=APP_BASE_URL + "/oauth/callback",
 )
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
