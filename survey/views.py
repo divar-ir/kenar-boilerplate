@@ -24,4 +24,17 @@ class RateView(APIView):
         survey.target_verifier.save()
 
         return Response(data={"message": "OK", "avg_rate": avg_rate}, status=status.HTTP_201_CREATED)
-    
+    def get(self, request, survey_id):
+
+        survey = get_object_or_404(Survey, uuid=survey_id)
+
+        if survey.completed:
+            return Response(data={"status": "completed"})
+        
+        data = {
+            "status": "open", 
+            "verifier_name": survey.target_verifier.firstname + " " + survey.target_verifier.lastname,
+            "post_id": survey.transaction.post.pk, 
+        }
+
+        return Response(data=data)
