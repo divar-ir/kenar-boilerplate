@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Optional, Self
+from typing import Optional
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, Field, field_serializer, model_validator
@@ -37,7 +37,7 @@ class OAuthSession(BaseModel):
         return str(callback_url)
 
     @model_validator(mode="after")
-    def validate_chat_id(self) -> Self:
+    def validate_chat_id(self):
         if self.type == OAuthSessionType.CHAT.value and not self.chat_id:
             raise ValueError(f"OAuthSession with {OAuthSessionType.CHAT.value} type must has chat_id")
         return self

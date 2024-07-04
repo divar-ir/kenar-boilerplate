@@ -21,17 +21,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
-
+SECRET_KEY = "dgdzfbhxfjdzfgfcg"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-APP_HOST = os.getenv("APP_HOST")
-APP_BASE_URL = "https://" + APP_HOST
+APP_HOST = "127.0.0.1"
+APP_BASE_URL = "127.0.0.1"
 
 ALLOWED_HOSTS = [APP_HOST, "localhost", "127.0.0.1"]
 
-CSRF_TRUSTED_ORIGINS = [APP_BASE_URL, "http://localhost:8000", "http://127.0.0.1:8000"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "http://127.0.0.1:8000"]
 
 DATABASE_HOST = os.getenv("DATABASE_HOST", "localhost")
 DATABASE_PORT = os.getenv("DATABASE_PORT", "5432")
@@ -88,12 +87,8 @@ WSGI_APPLICATION = "boilerplate.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": DATABASE_NAME,
-        "USER": DATABASE_USER,
-        "PASSWORD": DATABASE_PASSWORD,
-        "HOST": DATABASE_HOST,
-        "PORT": DATABASE_PORT,
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "db.sqlite3"
     }
 }
 
@@ -144,9 +139,9 @@ OAUTH_SESSION_KEY = "oauth_session"
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-divar_kenar_client_conf = AppConfig(
-    app_slug=os.environ.get("KENAR_APP_SLUG"),
-    api_key=os.environ.get("KENAR_API_KEY"),
-    oauth_secret=os.environ.get("KENAR_OAUTH_SECRET"),
-    oauth_redirect_url=APP_BASE_URL + "/oauth/callback",
-)
+# divar_kenar_client_conf = AppConfig(
+#     app_slug=os.environ.get("KENAR_APP_SLUG"),
+#     api_key=os.environ.get("KENAR_API_KEY"),
+#     oauth_secret=os.environ.get("KENAR_OAUTH_SECRET"),
+#     oauth_redirect_url=APP_BASE_URL + "/oauth/callback",
+# )

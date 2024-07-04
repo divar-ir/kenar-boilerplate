@@ -10,7 +10,10 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
 from kenar.models.chatmessage import SetNotifyChatPostConversationsRequest
+from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from addon.models import Post
 from boilerplate import settings
@@ -72,10 +75,10 @@ def oauth_callback(request):
 
             logger.error(access_token_response.access_token)
             logger.error(SetNotifyChatPostConversationsRequest(
-                    post_token=chat.post.token,
-                    endpoint=settings.APP_BASE_URL + reverse("receive_notify"),
-                    identification_key=signer.sign(str(chat.id)),
-                ),)
+                post_token=chat.post.token,
+                endpoint=settings.APP_BASE_URL + reverse("receive_notify"),
+                identification_key=signer.sign(str(chat.id)),
+            ), )
 
             kenar_client.chat.set_notify_chat_post_conversations(
                 access_token=access_token_response.access_token,
@@ -96,3 +99,9 @@ def oauth_callback(request):
     except Exception as err:
         logger.error(f"An error occurred: {err}")
         return HttpResponseServerError("Internal server error")
+
+
+class FakeView(APIView):
+    def get(self, request):
+        return Response({"message": "YO"}, status=status.HTTP_200_OK)
+        pass
