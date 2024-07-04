@@ -30,7 +30,7 @@ APP_BASE_URL = "https://" + APP_HOST
 
 ALLOWED_HOSTS = [APP_HOST, "localhost", "127.0.0.1", "*"]
 
-CSRF_TRUSTED_ORIGINS = ["*"]
+# CSRF_TRUSTED_ORIGINS = ["http://"]
 
 DATABASE_HOST = os.getenv("DATABASE_HOST", "localhost")
 DATABASE_PORT = os.getenv("DATABASE_PORT", "5432")
@@ -57,7 +57,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
+    #"django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
