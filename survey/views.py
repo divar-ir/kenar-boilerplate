@@ -9,8 +9,8 @@ from accounts.models import Verifier
 from django.db.models import Avg
 
 class RateView(APIView):
-    def post(request, id):
-        survey = get_object_or_404(Survey, id=id)
+    def post(request, survey_id):
+        survey = get_object_or_404(Survey, uuid=survey_id)
         
         rate = request.data.get('rate')
         survey.rate = rate

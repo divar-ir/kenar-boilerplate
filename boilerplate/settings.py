@@ -30,6 +30,7 @@ APP_BASE_URL = "https://" + APP_HOST
 
 ALLOWED_HOSTS = [APP_HOST, "localhost", "127.0.0.1", "*"]
 
+CORS_ALLOWED_ORIGINS = ["https://localhost", "https://0.0.0.0", "https://shalsha.darkube.app","http://shalsha.darkube.app"]
 # CSRF_TRUSTED_ORIGINS = ["http://"]
 
 DATABASE_HOST = os.getenv("DATABASE_HOST", "localhost")
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "corsheaders",
+
     "addon",
     "chat",
     "oauth",
@@ -59,6 +62,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     #"django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -146,12 +150,12 @@ OAUTH_SESSION_KEY = "oauth_session"
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-divar_kenar_client_conf = ClientConfig(
-    app_slug=os.environ.get("KENAR_APP_SLUG"),
-    api_key=os.environ.get("KENAR_API_KEY"),
-    oauth_secret=os.environ.get("KENAR_OAUTH_SECRET"),
-    oauth_redirect_url=APP_BASE_URL + "/oauth/callback",
-)
+# divar_kenar_client_conf = ClientConfig(
+#     app_slug=os.environ.get("KENAR_APP_SLUG"),
+#     api_key=os.environ.get("KENAR_API_KEY"),
+#     oauth_secret=os.environ.get("KENAR_OAUTH_SECRET"),
+#     oauth_redirect_url=APP_BASE_URL + "/oauth/callback",
+# )
 
 try:
     from .local_settings import *
