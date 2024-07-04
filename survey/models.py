@@ -1,17 +1,30 @@
 from django.db import models
 from accounts import models as accounts_models
 from matching import models as matching_models
+from django.db import models
+import uuid, base64
 
-
-class RateEvent(accounts_models.TimestampModel):
-    class Side(models.IntegerChoices):
+class Side(models.IntegerChoices):
         BUYER = 1, 'Buyer'
         SELLER = 2, 'Seller'
 
-    transaction = models.ForeignKey(matching_models.Transaction, on_delete=models.CASCADE)
-    rating_user = models.ForeignKey(accounts_models.User, on_delete=models.CASCADE)
+def generate_short_uuid():
+    return base64.urlsafe_b64encode(uuid.uuid4().bytes).rstrip(b'=').decode('ascii')[:12]
+
+class Survey(models.Model):
+    id = models.CharField(default=uuid.uuid4, editable=False, unique=True, max_length=12)
     side = models.SmallIntegerField(choices=Side.choices)
 
+    rating_user = models.ForeignKey(accounts_models.User, on_delete=models.CASCADE)
+    target_verifier = models.ForeignKey(accounts_models.Verifier, on_delete=models.CASCADE)
+    transaction = models.ForeignKey(matching_models.Transaction, on_delete=models.CASCADE)
+
+    rate = models.DecimalField(max_digits=5, null=True)
+
+
+    completed = models.BooleanField(default=False)
+
     def __str__(self):
-        return f'RateEvent: {self.id}'
-# Create your models here.
+         return f'Survey {self.uuid}'
+    
+    
