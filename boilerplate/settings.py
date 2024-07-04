@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
-from kenar.app import AppConfig, KenarApp
+from kenar import ClientConfig
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -144,7 +144,7 @@ OAUTH_SESSION_KEY = "oauth_session"
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
-divar_kenar_client_conf = AppConfig(
+divar_kenar_client_conf = ClientConfig(
     app_slug=os.environ.get("KENAR_APP_SLUG"),
     api_key=os.environ.get("KENAR_API_KEY"),
     oauth_secret=os.environ.get("KENAR_OAUTH_SECRET"),

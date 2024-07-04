@@ -9,7 +9,7 @@ from django.http import HttpResponseBadRequest, HttpResponseForbidden, HttpRespo
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
-from kenar.models.chatmessage import SetNotifyChatPostConversationsRequest
+from kenar.chatmessage import SetNotifyChatPostConversationsRequest
 from rest_framework.decorators import api_view
 
 from addon.models import Post
