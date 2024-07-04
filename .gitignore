@@ -4,3 +4,4 @@
 docker-compose.yml
 postgres-data/
 venv/
+boilerplate/local_settings.py
