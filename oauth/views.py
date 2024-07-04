@@ -87,13 +87,9 @@ def oauth_callback(request):
 
         if oauth_session.type == OAuthSessionType.POST.value:
             oauth.save()
-            base_url = reverse("fake-view")
-            query_string = urlencode({
-                "state": oauth_session.state,
-                "access_token": oauth.access_token,
-                "post_token": post.token
-                })
-            url = f"{base_url}?{query_string}"
+            base_url = settings.FRONT_END_URL
+
+            url = f"{base_url}set-verifiers/?{post.token}"
             return redirect(url)
 
         elif oauth_session.type == OAuthSessionType.CHAT.value:
