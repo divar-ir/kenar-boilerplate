@@ -4,7 +4,7 @@ import pydantic
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 from kenar.app import Scope
-from kenar.models.oauth import OauthResourceType
+from kenar.oauth import OauthResourceType
 from rest_framework.decorators import api_view
 
 from addon.models import Post

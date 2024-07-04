@@ -9,7 +9,7 @@ from django.http import HttpResponseBadRequest, HttpResponseForbidden, HttpRespo
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
-from kenar.models.chatmessage import SetNotifyChatPostConversationsRequest
+from kenar.chatmessage import SetNotifyChatPostConversationsRequest
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
@@ -21,6 +21,7 @@ from boilerplate.clients import get_divar_kenar_client
 from chat.models import Chat
 from oauth.models import OAuth
 from oauth.schemas import OAuthSession, OAuthSessionType
+from kenar import CreatePostAddonRequest
 
 from kenar import (
     CreatePostAddonRequest,
@@ -175,7 +176,7 @@ class FakeView(APIView):
             title="تایتل",
             subtitle="سابتایتل",
             has_indicator=False,
-            image_url=image_name,
+            image_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoY3USrSPdY4jq7pzu9nYNPWwuxEv0Dh_K_w&s",
             label="لیبل",
             has_divider=True,
             link="https://www.test.com",
