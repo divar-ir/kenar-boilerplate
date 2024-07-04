@@ -14,7 +14,7 @@ class OAuthSessionType(Enum):
 class OAuthSession(BaseModel):
     state: UUID = Field(default_factory=uuid4)
     type: OAuthSessionType
-    callback_url: AnyUrl
+    callback_url: Optional[AnyUrl] = None
     post_token: str
     chat_id: Optional[UUID] = None
 
