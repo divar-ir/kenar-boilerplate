@@ -182,7 +182,7 @@ class FakeView(APIView):
             #image_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoY3USrSPdY4jq7pzu9nYNPWwuxEv0Dh_K_w&s",
             label="لیبل",
             has_divider=True,
-            link="https://www.test.com",
+            link="https://salsa.darkube.app",
             padded=True,
             icon=Icon(icon_name=IconName.ADD),
         )
@@ -243,12 +243,12 @@ class FakeView(APIView):
             has_divider=True,
             has_arrow=True,
             icon=Icon(icon_name=IconName.INFO),
-            link="https://www.test.com",
+            link="https://salsa.darkube.app",
         )
 
         wide_button_bar = WideButtonBar(
             button=WideButtonBar.Button(
-                title="به سمت سایت شما", link="https://www.test.com"
+                title="به سمت سایت شما", link="https://salsa.darkube.app"
             ),
         )
         resp = kenar_client.addon.create_post_addon(
