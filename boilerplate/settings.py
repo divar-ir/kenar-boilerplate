@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     "addon",
     "chat",
     "oauth",
+    "accounts",
+    "survey",
+    "matching",
 ]
 
 MIDDLEWARE = [
