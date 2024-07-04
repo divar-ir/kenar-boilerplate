@@ -139,7 +139,10 @@ class FakeView(APIView):
         title_row = TitleRow(
             text="این یک نمونه تایتل میباشد", text_color=Color.TEXT_SECONDARY
         )
-
+        
+        kenar_client = get_divar_kenar_client()
+        #kenar_client.addon.upload_image("")
+        
         subtitle_row = SubtitleRow(text="این یک سابتایتل میباشد")
 
         desc_row = DescriptionRow(
@@ -176,7 +179,7 @@ class FakeView(APIView):
             title="تایتل",
             subtitle="سابتایتل",
             has_indicator=False,
-            image_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoY3USrSPdY4jq7pzu9nYNPWwuxEv0Dh_K_w&s",
+            #image_url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoY3USrSPdY4jq7pzu9nYNPWwuxEv0Dh_K_w&s",
             label="لیبل",
             has_divider=True,
             link="https://www.test.com",
@@ -248,7 +251,6 @@ class FakeView(APIView):
                 title="به سمت سایت شما", link="https://www.test.com"
             ),
         )
-        kenar_client = get_divar_kenar_client()
         resp = kenar_client.addon.create_post_addon(
             access_token=request.GET["access_token"],
             data=CreatePostAddonRequest(
