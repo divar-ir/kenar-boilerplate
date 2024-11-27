@@ -20,3 +20,6 @@ class OAuth(models.Model):
 
     def is_expired(self):
         return now() >= self.expires_in
+
+    def __str__(self):
+        return self.session_id

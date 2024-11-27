@@ -77,14 +77,6 @@ def oauth_callback(request):
                     identification_key=signer.sign(str(chat.id)),
                 ),)
 
-            kenar_client.chat.set_notify_chat_post_conversations(
-                access_token=access_token_response.access_token,
-                data=SetNotifyChatPostConversationsRequest(
-                    post_token=chat.post.token,
-                    endpoint=settings.APP_BASE_URL + reverse("receive_notify"),
-                    identification_key=signer.sign(str(chat.id)),
-                ),
-            )
             base_url = reverse("chat_app")
             query_string = urlencode({"state": oauth_session.state})
             url = f"{base_url}?{query_string}"
