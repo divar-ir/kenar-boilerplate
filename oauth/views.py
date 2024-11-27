@@ -9,7 +9,7 @@ from django.http import HttpResponseBadRequest, HttpResponseForbidden, HttpRespo
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils import timezone
-from kenar.chatmessage import SetNotifyChatPostConversationsRequest
+from kenar import RegisterEventSubscriptionRequest
 from rest_framework.decorators import api_view
 
 from addon.models import Post
@@ -71,12 +71,18 @@ def oauth_callback(request):
             oauth.save()
 
             logger.error(access_token_response.access_token)
-            logger.error(SetNotifyChatPostConversationsRequest(
-                    post_token=chat.post.token,
-                    endpoint=settings.APP_BASE_URL + reverse("receive_notify"),
-                    identification_key=signer.sign(str(chat.id)),
-                ),)
+            logger.error(RegisterEventSubscriptionRequest(
+                event_type=RegisterEventSubscriptionRequest.EventType.NEW_MESSAGE_ON_POST,
+                event_resource_id=chat.post.token,
+            ))
 
+            kenar_client.events.register_event_subscription(
+                access_token=access_token_response.access_token,
+                data=RegisterEventSubscriptionRequest(
+                    event_type=RegisterEventSubscriptionRequest.EventType.NEW_MESSAGE_ON_POST,
+                    event_resource_id=chat.post.token,
+                ),
+            )
             base_url = reverse("chat_app")
             query_string = urlencode({"state": oauth_session.state})
             url = f"{base_url}?{query_string}"
